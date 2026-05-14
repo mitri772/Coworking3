@@ -444,8 +444,17 @@ details[open] > summary { margin-bottom: 8px; }
 }
 
 /* In-page modal dialog used instead of native window.confirm(). */
+/* NOTE: top/right/bottom/left are duplicated alongside `inset: 0` so the
+   modal stays a centered overlay in older WebViews (e.g. Telegram Mini App
+   on Android) that do not understand the `inset` shorthand. Without these,
+   `position: fixed` falls back to the element's in-flow position and the
+   modal renders unstyled below the page content. */
 .modal {
   position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   inset: 0;
   z-index: 1000;
   display: flex;
@@ -455,6 +464,10 @@ details[open] > summary { margin-bottom: 8px; }
 }
 .modal__backdrop {
   position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   inset: 0;
   background: rgba(15, 22, 35, 0.45);
 }
@@ -462,7 +475,7 @@ details[open] > summary { margin-bottom: 8px; }
   position: relative;
   background: #fff;
   border-radius: var(--radius);
-  padding: 18px 16px 16px;
+  padding: 20px 20px 16px;
   width: 100%;
   max-width: 360px;
   box-shadow: 0 18px 40px rgba(15, 22, 35, 0.18);
@@ -492,7 +505,7 @@ html.is-modal-open body {
 
 @media (max-width: 480px) {
   .modal { padding: 12px; }
-  .modal__dialog { padding: 16px 14px 14px; }
+  .modal__dialog { padding: 18px 18px 14px; }
   .modal__title { font-size: 15px; }
   .modal__body { font-size: 14px; }
 }
